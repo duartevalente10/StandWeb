@@ -1,0 +1,60 @@
+﻿@model StandWeb.Models.Fotografias
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 style="color:white">Details</h1>
+
+<div>
+    <h4>Fotografias</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Fotografia)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Fotografia)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Carro.Modelo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Carro.Modelo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Carro.Potencia)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Carro.Potencia)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Carro.Cilindrada)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Carro.Cilindrada)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Carro.Ano)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Carro.Ano)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Carro.Combustivel)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Carro.Combustivel)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Carro.Preco)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Carro.Preco)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

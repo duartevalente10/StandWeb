@@ -1,0 +1,66 @@
+﻿@model StandWeb.Models.FotosCarros
+@* Esta View está a processar um ViewModel que contém dois objetos:
+    - a lista de fotografias dos carros
+    - a lista dos IDs dos cães da pessoa autenticada
+*@
+
+
+@{ ViewData["Title"] = "Lista de Carros"; }
+
+<h1 style="color:black" > Carros</h1>
+
+@if (User.Identity.IsAuthenticated)
+{
+    // este link só vai aparecer ao utilizador se ele estiver autenticado
+<p>
+    <a asp-action="Create">Adicionar nova Fotografia</a>
+</p>}
+
+<table class="table" border="0" style="align-items:center">
+    <thead>
+        <tr>
+            <th style="color:dimgray">
+                @* vai ao modelo, e mostra o nome do atributo referido *@
+                @Html.DisplayNameFor(model => model.ListaFotografias.FirstOrDefault().Fotografia)
+            </th>
+            <th style="color:dimgray">
+                 @Html.DisplayNameFor(model => model.ListaFotografias.FirstOrDefault().Carro)
+            </th>
+                      
+        </tr>
+    </thead>
+    <tbody>
+           @foreach (var item in Model.ListaFotografias)
+            {
+        <tr>
+            <td>
+                @* invoca o valor existente no Modelo com o conteúdo deste atributo *@
+
+                <img src="~/fotos/@Html.DisplayFor(modelItem => item.Fotografia)"
+                     width="700"
+                     alt="Fotografia do carro @Html.DisplayFor(modelItem => item.Carro.Modelo)"
+                     title="@Html.DisplayFor(modelItem => item.Carro.Modelo)" />
+            </td>
+            <td style="color:black">
+                <strong style="font-size: 45px;" >
+                    <a style="color:black" asp-action="Details" asp-controller="Fotografias" asp-route-id="@item.Carro.Id">
+                        @Html.DisplayFor(modelItem => item.Carro.Modelo)
+                    </a>
+                </strong>
+            </td>
+           @if (User.Identity.IsAuthenticated)
+            {
+                <td style="color:dimgray">
+                    @if (Model.ListaCarros.Contains(item.CarroFK))
+                    {
+                <text>
+                    @*esta anotação <text> marca o conteúdo como 'texto' dessa forma, o Razor irá ignorar o seu conteúdo *@
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
+                </text>}
+                </td>
+            }
+        </tr>}
+    </tbody>
+</table>

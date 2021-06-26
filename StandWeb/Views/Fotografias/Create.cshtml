@@ -1,0 +1,65 @@
+﻿@model StandWeb.Models.Fotografias
+
+@{
+   ViewData["Title"] = "Adicionar Carro";
+}
+
+<h1>Adicionar um carro</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @* se não adicionarmos
+            enctype='multipart/form-data'
+            nao conseguimos enviar os ficheiros para o servidor*@
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            @* esta DIV é o local onde os erros gerados na app serão reportados *@
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @* https://getbootstrap.com/docs/5.0/getting-started/introduction/ *@
+
+            @* ficheiro com a fotografia *@
+            <div class="form-group">
+                <label asp-for="Fotografia" class="control-label"></label>
+                @*codigo original, criado pela Template
+                <input asp-for=Fotografia" class="from-control /> *@
+                <input type="file" name="fotoCarro" accept=".jpg,.jpeg,.png" style="color:blue;" />
+                <span asp-validation-for="Fotografia" class="text-danger"></span>
+            </div>
+
+            @* data em que a fotografia foi tirada *@
+            <div class="form-group">
+                <label asp-for="DataFoto" class="control-label"></label>
+                <input type="date" asp-for="DataFoto" class="form-control" />
+                <span asp-validation-for="DataFoto" class="text-danger"></span>
+            </div>
+
+            @* local onde se fotografou a foto *@
+            <div class="form-group">
+                <label asp-for="Local" class="control-label"></label>
+                <input asp-for="Local" class="form-control" />
+                <span asp-validation-for="Local" class="text-danger"></span>
+            </div>
+
+            @* referência ao carro fotografado *@
+            <div class="form-group">
+                <label asp-for="CarroFK" class="control-label"></label>
+                <select asp-for="CarroFK" class="form-control" asp-items="ViewBag.CarroFK">
+                    <option value="0">Escolha um Carro, por favor.</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+   <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+   @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
