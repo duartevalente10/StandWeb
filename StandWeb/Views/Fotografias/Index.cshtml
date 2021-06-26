@@ -13,7 +13,7 @@
 {
     // este link só vai aparecer ao utilizador se ele estiver autenticado
 <p>
-    <a asp-action="Create">Adicionar nova Fotografia</a>
+    <a style="color:dimgray" asp-action="Create">Adicionar nova Fotografia</a>
 </p>}
 
 <table class="table" border="0" style="align-items:center">
@@ -48,19 +48,19 @@
                     </a>
                 </strong>
             </td>
-           @if (User.Identity.IsAuthenticated)
-            {
-                <td style="color:dimgray">
-                    @if (Model.ListaCarros.Contains(item.CarroFK))
-                    {
-                <text>
-                    @*esta anotação <text> marca o conteúdo como 'texto' dessa forma, o Razor irá ignorar o seu conteúdo *@
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
-                </text>}
-                </td>
-            }
+               @if (User.Identity.IsAuthenticated)
+                {
+                    <td style="color:dimgray">
+                        @if (Model.ListaCarros.Contains(item.CarroFK))
+                        {
+                    <text>
+                        @*esta anotação <text> marca o conteúdo como 'texto' dessa forma, o Razor irá ignorar o seu conteúdo *@
+                        <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
+                    </text>}
+                    </td>
+                }
         </tr>}
     </tbody>
 </table>

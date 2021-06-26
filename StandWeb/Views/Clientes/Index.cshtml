@@ -8,10 +8,7 @@
 @if (User.Identity.IsAuthenticated)
 {
 <p>
-    <a asp-action="Create">Create New</a>
-</p>
-<p>
-    <a asp-action="ListaClientesPorAutorizar">Autorizações</a>
+    <a style="color:dimgray" asp-action="ListaClientesPorAutorizar">Autorizações</a>
 </p>
 }
 <table class="table">
@@ -53,10 +50,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
-            <td>
+
+            <td style="color:dimgray">
+                @if (User.Identity.Name == "Gestor")
+                {
+            <text>
+                @*esta anotação <text> marca o conteúdo como 'texto' dessa forma, o Razor irá ignorar o seu conteúdo *@
                 <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
+            </text>}
             </td>
         </tr>
 }

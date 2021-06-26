@@ -4,18 +4,19 @@
     ViewData["Title"] = "Details";
 }
 
-<h1 style="color:white">Details</h1>
+<h1 style="color:black; font-size:50px">Detalhes</h1>
 
 <div>
-    <h4>Fotografias</h4>
+    <h2 style="color:dimgray; font-size:35px">@Html.DisplayFor(model => model.Carro.Modelo)</h2>
     <hr />
+    <img src="~/fotos/@Html.DisplayFor(model => model.Fotografia)"
+         width="700"
+         alt="Fotografia do carro @Html.DisplayFor(model => model.Carro.Modelo)"
+         cen
+         title="@Html.DisplayFor(model => model.Carro.Modelo)" />
+    <br />
+    <br />
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Fotografia)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Fotografia)
-        </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Carro.Modelo)
         </dt>
@@ -54,7 +55,7 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div >
+    <a style="color:dimgray" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a style="color:dimgray" asp-action="Index">Back to List</a>
 </div>

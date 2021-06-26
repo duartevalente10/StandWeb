@@ -152,17 +152,7 @@ namespace StandWeb.Controllers
              * e, a minha expressão fica: _context.Caes.OrderBy(c=>c.Nome)
              * 
             */
-
-            // _context.Caes.OrderBy(c => c.Nome)  -> obtem a lista de todos os Cães
-            // mas, queremos apenas a lista de cães do utilizador autenticado
-            var carro = (from c in _context.Carros
-                        join cc in _context.Gostos on c.Id equals cc.CarroFK
-                        join cr in _context.Clientes on cc.ClienteFK equals cr.Id
-                        where cr.UserName == _userManager.GetUserId(User)
-                        select c)
-                       .OrderBy(c => c.Modelo);
-
-            ViewData["CarroFK"] = new SelectList(carro, "Id", "Modelo");
+            ViewData["CarroFK"] = new SelectList(_context.Carros.OrderBy(c => c.Modelo), "Id", "Modelo");
 
 
             return View();
@@ -179,19 +169,13 @@ namespace StandWeb.Controllers
         public async Task<IActionResult> Create([Bind("DataFoto,Local,CarroFK")] Fotografias foto, IFormFile fotoCarro)
         {
 
-            // avaliar se  o utilizador escolheu uma opção válida na dropdown do Carro
+            // avaliar se  o utilizador escolheu uma opção válida na dropdown do Cão
             if (foto.CarroFK < 0)
             {
-                // não foi escolhido um carro válido 
+                // não foi escolhido um cão válido 
                 ModelState.AddModelError("", "Não se esqueça de escolher um carro...");
                 // devolver o controlo à View
-                var carros = (from c in _context.Carros
-                            join cc in _context.Gostos on c.Id equals cc.CarroFK
-                            join cr in _context.Clientes on cc.ClienteFK equals cr.Id
-                            where cr.UserName == _userManager.GetUserId(User)
-                            select c)
-                       .OrderBy(c => c.Modelo);
-                ViewData["CarroFK"] = new SelectList(carros, "Id", "Modelo");
+                ViewData["CarroFK"] = new SelectList(_context.Carros.OrderBy(c => c.Modelo), "Id", "Modelo");
                 return View(foto);
             }
 
@@ -218,13 +202,7 @@ namespace StandWeb.Controllers
                 // adicionar msg de erro
                 ModelState.AddModelError("", "Adicione, por favor, a fotografia do carro");
                 // devolver o controlo à View
-                var carros = (from c in _context.Carros
-                            join cc in _context.Gostos on c.Id equals cc.CarroFK
-                            join cr in _context.Clientes on cc.ClienteFK equals cr.Id
-                            where cr.UserName == _userManager.GetUserId(User)
-                            select c)
-                      .OrderBy(c => c.Modelo);
-                ViewData["CaoFK"] = new SelectList(carros, "Id", "Modelo");
+                ViewData["CarroFK"] = new SelectList(_context.Carros.OrderBy(c => c.Modelo), "Id", "Modelo");
                 return View(foto);
             }
             else
@@ -255,14 +233,7 @@ namespace StandWeb.Controllers
                     // adicionar msg de erro
                     ModelState.AddModelError("", "Só pode escolher uma imagem para a associar ao carro");
                     // devolver o controlo à View
-                    var carros = (from c in _context.Carros
-                                join cc in _context.Gostos on c.Id equals cc.CarroFK
-                                join cr in _context.Clientes on cc.ClienteFK equals cr.Id
-                                where cr.UserName == _userManager.GetUserId(User)
-                                select c)
-                       .OrderBy(c => c.Modelo);
-
-                    ViewData["CarroFK"] = new SelectList(carros, "Id", "Modelo");
+                    ViewData["CarroFK"] = new SelectList(_context.Carros.OrderBy(c => c.Modelo), "Id", "Modelo");
                     return View(foto);
                 }
             }
