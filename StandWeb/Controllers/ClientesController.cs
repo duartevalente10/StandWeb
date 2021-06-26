@@ -97,7 +97,6 @@ namespace StandWeb.Controllers
         [Authorize(Roles = "Gestor")]
         public async Task<IActionResult> ListaClientesPorAutorizar()
         {
-
             // quais os Clientes ainda não autorizados a aceder ao Sistema?
             // lista com os utilizadores bloqueados
             var listaDeUtilizadores = _userManager.Users.Where(u => u.LockoutEnd > DateTime.Now);
@@ -114,7 +113,7 @@ namespace StandWeb.Controllers
 
             // Enviar os dados para a View
             return View(await listaClientes.ToListAsync());
-        }
+            }
 
 
         /// <summary>
