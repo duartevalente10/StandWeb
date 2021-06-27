@@ -16,7 +16,6 @@ using Microsoft.AspNetCore.Identity;
 namespace StandWeb.Controllers
 {
 
-
     [Authorize] // esta 'anotação' garante que só as pessoas autenticadas têm acesso aos recursos
     public class FotografiasController : Controller
     {
@@ -82,9 +81,6 @@ namespace StandWeb.Controllers
             return View(fotos);
         }
 
-
-
-
         // GET: Fotografias/Details/5
         /// <summary>
         /// Mostra os detalhes de uma fotografia
@@ -124,12 +120,7 @@ namespace StandWeb.Controllers
             return View(fotografia);
         }
 
-
-
-
-
         // GET: Fotografias/Create
-        // [HttpGet]    não preciso desta definição, pois por omissão ele responde sempre em GET
         /// <summary>
         /// invoca, na primeira vez, a View com os dados de criação de uma fotografia
         /// </summary>
@@ -137,29 +128,11 @@ namespace StandWeb.Controllers
         public IActionResult Create()
         {
 
-            /* geração da lista de valores disponíveis na DropDown
-             * o ViewData transporta dados a serem associados ao atributo 'CaoFK'
-             * o SelectList é um tipo de dados especial que serve para armazenar a lista 
-             * de opções de um objeto do tipo <SELECT> do HTML
-             * Contém dois valores: ID + nome a ser apresentado no ecrã
-             * 
-             * _context.Caes : representa a fonte dos dados
-             *                 na prática estamos a executar o comando SQL
-             *                 SELECT * FROM Caes
-             * 
-             * vamos alterar a pesquisa para significar
-             * SELECT * FROM Caes ORDER BY Nome
-             * e, a minha expressão fica: _context.Caes.OrderBy(c=>c.Nome)
-             * 
-            */
             ViewData["CarroFK"] = new SelectList(_context.Carros.OrderBy(c => c.Modelo), "Id", "Modelo");
 
 
             return View();
         }
-
-
-
 
         // POST: Fotografias/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -178,7 +151,6 @@ namespace StandWeb.Controllers
                 ViewData["CarroFK"] = new SelectList(_context.Carros.OrderBy(c => c.Modelo), "Id", "Modelo");
                 return View(foto);
             }
-
 
             /* processar o ficheiro
              *   - existe ficheiro?
@@ -238,7 +210,6 @@ namespace StandWeb.Controllers
                 }
             }
 
-
             if (ModelState.IsValid)
             {
                 try
@@ -253,7 +224,6 @@ namespace StandWeb.Controllers
                     using var stream = new FileStream(nomeImagem, FileMode.Create);
                     await fotoCarro.CopyToAsync(stream);
 
-
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
@@ -263,14 +233,10 @@ namespace StandWeb.Controllers
                 }
             }
 
-
             ViewData["CarroFK"] = new SelectList(_context.Carros.OrderBy(c => c.Modelo), "Id", "Modelo", foto.CarroFK);
 
             return View(foto);
         }
-
-
-
 
         // GET: Fotografias/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -295,9 +261,6 @@ namespace StandWeb.Controllers
 
             return View(fotografia);
         }
-
-
-
 
         // POST: Fotografias/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -326,8 +289,6 @@ namespace StandWeb.Controllers
                 return RedirectToAction("Index");
             }
 
-
-
             if (ModelState.IsValid)
             {
                 try
@@ -352,8 +313,6 @@ namespace StandWeb.Controllers
             return View(foto);
         }
 
-
-
         // GET: Fotografias/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -372,9 +331,6 @@ namespace StandWeb.Controllers
 
             return View(fotografias);
         }
-
-
-
 
         // POST: Fotografias/Delete/5
         [HttpPost, ActionName("Delete")]

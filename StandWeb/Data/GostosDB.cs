@@ -11,25 +11,22 @@ namespace StandWeb.Data
 { 
     public class ApplicationUser : IdentityUser
         {
-
             /// <summary>
             /// recolhe a data de registo de um utilizador
             /// </summary>
             public DateTime DataRegisto { get; set; }
 
             // /// <summary>
-            // /// se fizerem isto, estão a adicionar todos os atributos do 'Criador'
+            // /// se fizerem isto, estão a adicionar todos os atributos do 'Cliente'
             // /// à tabela de autenticação
             // /// </summary>
-            // public Criadores Criador { get; set; }
         }
 
     public class GostosDB : IdentityDbContext<ApplicationUser>
     {
 
         // Install-Package Microsoft.EntityFrameworkCore -Version 5.0.4
-
-        // construtor da classe VendedorCarrosDB
+        // construtor da classe GostosDB
         // indicar onde está a BD à qual estas classes (tabelas) serão associadas
         // ver o conteúdo do ficheiro 'startup.cs'
         public GostosDB(DbContextOptions<GostosDB> options) : base(options) { }
@@ -41,12 +38,14 @@ namespace StandWeb.Data
             base.OnModelCreating(modelBuilder);
 
             // insert DB seed
+
             // dados para definição dos 'Roles'
             modelBuilder.Entity<IdentityRole>().HasData(
             new IdentityRole { Id = "c", Name = "Cliente", NormalizedName = "CLIENTE" },
             new IdentityRole { Id = "g", Name = "Gestor", NormalizedName = "GESTOR" }
             );
 
+            //dados Marcas
             modelBuilder.Entity<Marcas>().HasData(
                new Marcas { Id = 1, Nome = "Buggati" },
                new Marcas { Id = 2, Nome = "Pagani" },
@@ -58,6 +57,7 @@ namespace StandWeb.Data
                new Marcas { Id = 8, Nome = "Rimac" }
             );
 
+            //dados Clientes
             modelBuilder.Entity<Clientes>().HasData(
                new Clientes { Id = 1, Nome = "Marisa Vieira", Morada = "Largo do Pelourinho", CodPostal = "2305 - 515 PAIALVO", Email = "Marisa.Freitas@iol.pt", Telemovel = "967197885" },
                new Clientes { Id = 2, Nome = "Fátima Ribeiro", Morada = "Praça Infante Dom Henrique", CodPostal = "2300 - 551 TOMAR", Email = "Fátima.Machado@gmail.com", Telemovel = "963737476" },
@@ -70,6 +70,7 @@ namespace StandWeb.Data
                new Clientes { Id = 10, Nome = "Roberto Pinto", Morada = "Largo do Flecheiro", CodPostal = "2300 - 635 TOMAR", Email = "Roberto.Vieira@sapo.pt", Telemovel = "964685937" }
             );
 
+            //dados Carros
             modelBuilder.Entity<Carros>().HasData(
                new Carros { Id = 1, Modelo = "Bugatti Veyron", Ano = 2010, Preco = 2300000, Cilindrada = 8000, Potencia = 1400, Combustivel = "Gasolina", MarcaFK = 1 },
                new Carros { Id = 2, Modelo = "Bugatti Chiron", Ano = 2018, Preco = 2800000, Cilindrada = 9000, Potencia = 1600, Combustivel = "Gasolina", MarcaFK = 1 },
@@ -85,6 +86,7 @@ namespace StandWeb.Data
                new Carros { Id = 12, Modelo = "Paggani Huayra", Ano = 2017, Preco = 300000, Cilindrada = 8000, Potencia = 1300, Combustivel = "Gasolina", MarcaFK = 2 }
             );
 
+            //dados Fotografias
             modelBuilder.Entity<Fotografias>().HasData(
                new Fotografias { Id = 1, Fotografia = "veyron.jpg", Local = "Stand", DataFoto = new DateTime(2019, 5, 20), CarroFK = 1 },
                new Fotografias { Id = 2, Fotografia = "chiron.jpg", Local = "Stand", DataFoto = new DateTime(2019, 5, 20), CarroFK = 2 },
@@ -100,6 +102,7 @@ namespace StandWeb.Data
                new Fotografias { Id = 12, Fotografia = "Huayra.jpg", Local = "Stand", DataFoto = new DateTime(2017, 1, 5), CarroFK = 12 }
             );
 
+            //dados Gostos
             modelBuilder.Entity<Gostos>().HasData(
                new Gostos { Id = 1, DataCompra = new DateTime(2019, 6, 15), CarroFK = 1, ClienteFK = 1 },
                new Gostos { Id = 2, DataCompra = new DateTime(2019, 12, 9), CarroFK = 2, ClienteFK = 2 },
@@ -118,7 +121,6 @@ namespace StandWeb.Data
         }
 
         //Representar as Tabelas da BD
-
         public DbSet<Clientes> Clientes { get; set; }
         public DbSet<Carros> Carros { get; set; }
         public DbSet<Marcas> Marcas { get; set; }

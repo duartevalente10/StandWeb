@@ -13,21 +13,25 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            @* ficheiro com a fotografia *@
             <div class="form-group">
                 <label asp-for="Fotografia" class="control-label"></label>
                 <input asp-for="Fotografia" class="form-control" />
                 <span asp-validation-for="Fotografia" class="text-danger"></span>
             </div>
+            @* data em que a fotografia foi tirada *@
             <div class="form-group">
                 <label asp-for="DataFoto" class="control-label"></label>
                 <input asp-for="DataFoto" class="form-control" />
                 <span asp-validation-for="DataFoto" class="text-danger"></span>
             </div>
+            @* local onde se fotografou a foto *@
             <div class="form-group">
                 <label asp-for="Local" class="control-label"></label>
                 <input asp-for="Local" class="form-control" />
                 <span asp-validation-for="Local" class="text-danger"></span>
             </div>
+            @* referência ao carro fotografado *@
             <div class="form-group">
                 <label asp-for="CarroFK" class="control-label"></label>
                 <select asp-for="CarroFK" class="form-control" asp-items="ViewBag.CarroFK"></select>

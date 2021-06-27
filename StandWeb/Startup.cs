@@ -1,5 +1,4 @@
 using StandWeb.Data;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +29,6 @@ namespace StandWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             // uso de vars. de sessão
             services.AddDistributedMemoryCache();
             services.AddSession(options => {
@@ -43,12 +40,8 @@ namespace StandWeb
             // definir qual a classe que representa a Base de Dados
             // e especifica qual o motor (engine) que manipula a base de dados
             // Especifica, também, onde está a definição da localização da Base de Dados - ver ficheiro 'appSettings.json'
-            services.AddDbContext<GostosDB>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-
+            services.AddDbContext<GostosDB>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-
 
             // deixo de referir 'IdentityUser' e passo a usar 'ApplicationUser'
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)

@@ -52,9 +52,6 @@ namespace StandWeb.Models
         public string ModeloCarro { get; set; }
     }
 
-
-
-
     /// <summary>
     /// classe para permitir o transporte do Controller para a View, e vice-versa
     /// irá transportar os dados das Fotografias e dos IDs dos Carros que pertencem 

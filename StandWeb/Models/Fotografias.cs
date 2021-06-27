@@ -15,7 +15,7 @@ namespace StandWeb.Models
         public int Id { get; set; }
 
         /// <summary>
-        /// Nome do ficheiro com a fotografia do cão
+        /// Nome do ficheiro com a fotografia do carro
         /// </summary>
         public string Fotografia { get; set; }
 

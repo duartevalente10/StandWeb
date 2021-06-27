@@ -32,10 +32,5 @@ namespace StandWeb.Models
         /// Lista dos carros que são da marca
         /// </summary>
         public ICollection<Carros> ListaDeCarros { get; set; }
-        /* SELECT *
-         * FROM Carros c
-         * WHERE c.MarcaFK = ?? 
-         *
-         */
     }
 }

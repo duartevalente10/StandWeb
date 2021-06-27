@@ -17,7 +17,7 @@ namespace StandWeb.Models
         {
             // inicializar a lista de Fotografias de cada um dos carros
             ListasDeFotografias = new HashSet<Fotografias>();
-            // inicializar a lista de Compradores do carros
+            // inicializar a lista de Clientes
             ListaClientes = new HashSet<Gostos>();
         }
 
@@ -64,23 +64,10 @@ namespace StandWeb.Models
         /// <summary>
         /// FK para a Marca do carro
         /// </summary>
-        [ForeignKey(nameof(Marca))]  // esta 'anotação' indica que o atributo 'MarcaFK' está a executar o mesmo que o atributo 'Marca',
-                                    // e que representa uma FK para a classe Marcas
+        [ForeignKey(nameof(Marca))]  // esta 'anotação' indica que o atributo 'MarcaFK' está a executar o mesmo que o atributo 'Marca', e que representa uma FK para a classe Marcas
         public int MarcaFK { get; set; }   // atributo para ser usado no SGBD e no C#. Representa a FK para a Marca do carro
         public Marcas Marca { get; set; }   // atributo para ser usado no C#. Representa a FK para a Marca do carro
 
-
-        /* se estivesse-mos a criar a tabela 'Caes' em SQL
-         * CREATE TABLE Caes (
-         *    Id INT PRIMARY KEY,
-         *    Nome VARCHAR(30) NOT NULL,
-         *    ....
-         *    RacaFK INT NOT NULL,
-         *    LOP VARCHAR(20),
-         *    FOREIGN KEY (RacaFK) REFERENCES Racas(Id)
-         * ) 
-         *  
-         */
 
         // #########################################################
 
@@ -92,9 +79,9 @@ namespace StandWeb.Models
 
         // ##########################################################
 
-        // associar os Carros aos seus Vendedores
+        // associar os Carros aos seus Clientes
         /// <summary>
-        /// Lista dos Vendedores associado ao carro
+        /// Lista dos Clientes associado ao carro
         /// </summary>
         public ICollection<Gostos> ListaClientes { get; set; }
 

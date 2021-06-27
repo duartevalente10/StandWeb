@@ -10,7 +10,7 @@ namespace StandWeb.Models
     public class Gostos
     {
         /// <summary>
-        /// PK para a tabela do relacionamento entre Carros e Comprador
+        /// PK para a tabela do relacionamento entre Carros e Cliente
         /// </summary>
         [Key]
         public int Id { get; set; }

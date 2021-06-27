@@ -27,8 +27,6 @@ namespace StandWeb.Controllers
         /// </summary>
         private readonly UserManager<ApplicationUser> _userManager;
 
-
-
         public ClientesController(
            GostosDB context,
            UserManager<ApplicationUser> userManager)
@@ -61,39 +59,12 @@ namespace StandWeb.Controllers
             return View(clientes);
         }
 
-
-
-
-
-
-        //// GET: Clientes/Create
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        //// POST: Clientes/Create
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Id,Nome,NomeComercial,Morada,CodPostal,Telemovel,Email")] Clientes clientes)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(criadores);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(criadores);
-        //}
-
-
         /// <summary>
         /// Método para apresentar os dados dos Clientes a autorizar
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        //autorizar apenas gestores a aceder a esta função
         [Authorize(Roles = "Gestor")]
         public async Task<IActionResult> ListaClientesPorAutorizar()
         {
@@ -101,20 +72,10 @@ namespace StandWeb.Controllers
             // lista com os utilizadores bloqueados
             var listaDeUtilizadores = _userManager.Users.Where(u => u.LockoutEnd > DateTime.Now);
             // lista com os dados dos Clientes
-            var listaClientes = _context.Clientes
-                                         .Where(c => listaDeUtilizadores.Select(u => u.Id)
-                                                                       .Contains(c.UserName));
-            /* Em SQL seria algo deste género
-             * SELECT c.*
-             * FROM Criadores c, Users u
-             * WHERE c.UserName = u. Id AND
-             *       u.LockoutEnd > Data Atual          * 
-             */
-
+            var listaClientes = _context.Clientes.Where(c => listaDeUtilizadores.Select(u => u.Id).Contains(c.UserName));
             // Enviar os dados para a View
             return View(await listaClientes.ToListAsync());
             }
-
 
         /// <summary>
         /// método que recebe os dados dos utilizadores a desbloquear
@@ -122,18 +83,10 @@ namespace StandWeb.Controllers
         /// <param name="utilizadores">lista desses utilizadores</param>
         /// <returns></returns>
         [HttpPost]
+        //autorizar apenas gestores a aceder a esta função 
         [Authorize(Roles = "Gestor")]
-        /*
-         [Authorize(Roles = "Gestor")]  -->  só permite que pessoas com esta permissão entrem
-
-         [Authorize(Roles = "Gestor,Cliente")]  --> permite acesso a pessoas com uma das duas roles
-
-         [Authorize(Roles = "Gestor")]     -->
-         [Authorize(Roles = "Cliente")]    -->  Neste caso, a pessoa tem de pertencer aos dois roles
-        */
         public async Task<IActionResult> ListaClientesPorAutorizar(string[] utilizadores)
         {
-
             // será que algum utilizador foi selecionado?
             if (utilizadores.Count() != 0)
             {
@@ -165,7 +118,6 @@ namespace StandWeb.Controllers
 
             return RedirectToAction("Index");
         }
-
 
         // GET: Clientes/Edit/5
         public async Task<IActionResult> Edit(int? id)

@@ -1,16 +1,15 @@
 ﻿@model IEnumerable<StandWeb.Models.Clientes>
 
-@{
-    ViewData["Title"] = "Index";
-}
+@{ ViewData["Title"] = "Index"; }
 
 <h1>Index</h1>
+
 @if (User.Identity.IsAuthenticated)
 {
+ // este link só vai aparecer ao utilizador se ele estiver autenticado
 <p>
     <a style="color:dimgray" asp-action="ListaClientesPorAutorizar">Autorizações</a>
-</p>
-}
+</p>}
 <table class="table">
     <thead>
         <tr>
@@ -33,7 +32,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+       @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
@@ -50,18 +50,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
-
             <td style="color:dimgray">
                 @if (User.Identity.Name == "Gestor")
                 {
-            <text>
-                @*esta anotação <text> marca o conteúdo como 'texto' dessa forma, o Razor irá ignorar o seu conteúdo *@
-                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
-            </text>}
+                <text>
+                    @*esta anotação <text> marca o conteúdo como 'texto' dessa forma, o Razor irá ignorar o seu conteúdo *@
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
+                </text>}
             </td>
-        </tr>
-}
+        </tr>}
     </tbody>
 </table>

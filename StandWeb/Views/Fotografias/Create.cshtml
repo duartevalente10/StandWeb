@@ -9,20 +9,15 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        @* se não adicionarmos
-            enctype='multipart/form-data'
-            nao conseguimos enviar os ficheiros para o servidor*@
+        @* se não adicionarmos enctype='multipart/form-data' nao conseguimos enviar os ficheiros para o servidor*@
         <form asp-action="Create" method="post" enctype="multipart/form-data">
             @* esta DIV é o local onde os erros gerados na app serão reportados *@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            @* https://getbootstrap.com/docs/5.0/getting-started/introduction/ *@
-
             @* ficheiro com a fotografia *@
             <div class="form-group">
                 <label asp-for="Fotografia" class="control-label"></label>
-                @*codigo original, criado pela Template
-            <input asp-for=Fotografia" class="from-control /> *@
+                @*codigo original, criado pela Template <input asp-for=Fotografia" class="from-control /> *@
                 <input type="file" name="fotoCarro" accept=".jpg,.jpeg,.png" style="color:blue;" />
                 <span asp-validation-for="Fotografia" class="text-danger"></span>
             </div>

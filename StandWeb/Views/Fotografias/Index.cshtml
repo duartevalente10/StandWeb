@@ -1,9 +1,4 @@
 ﻿@model StandWeb.Models.FotosCarros
-@* Esta View está a processar um ViewModel que contém dois objetos:
-    - a lista de fotografias dos carros
-    - a lista dos IDs dos cães da pessoa autenticada
-*@
-
 
 @{ ViewData["Title"] = "Lista de Carros"; }
 
@@ -11,7 +6,7 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-    // este link só vai aparecer ao utilizador se ele estiver autenticado
+ // este link só vai aparecer ao utilizador se ele estiver autenticado
 <p>
     <a style="color:dimgray" asp-action="Create">Adicionar nova Fotografia</a>
 </p>}

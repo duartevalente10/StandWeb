@@ -104,11 +104,10 @@ namespace StandWeb.Areas.Identity.Pages.Account {
          //    ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
       }
 
-
       /// <summary>
       /// método a ser executado pela página, quando o HTTP é invocado em POST
       ///    - criar um novo Utilizador
-      ///    - registar os dados pessoais do criador
+      ///    - registar os dados pessoais do cliente
       /// </summary>
       /// <param name="returnUrl">link para redirecionar o utilizador, se fornecido</param>
       /// <returns></returns>
@@ -121,7 +120,6 @@ namespace StandWeb.Areas.Identity.Pages.Account {
          // se o 'returnUrl' for null, é-lhe atribuído um URL
          // se não for Null, nada é feito
          returnUrl ??= Url.Content("~/");
-
 
          // ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
@@ -147,12 +145,11 @@ namespace StandWeb.Areas.Identity.Pages.Account {
             if (result.Succeeded) {
                _logger.LogInformation("User created a new account with password.");
 
-
-               // se se desejar associar o utilizador recem criado à role 'Criador' 
+               // se se desejar associar o utilizador recem criado à role 'Cliente' 
                await _userManager.AddToRoleAsync(user, "Cliente");
 
                //*************************************************************
-               // Vamos proceder à operação de guardar os dados do Criador
+               // Vamos proceder à operação de guardar os dados do Cliente
                //*************************************************************
                // preparar os dados do Criador para serem adicionados à BD
                Input.Cliente.Email = Input.Email; // atribuir ao objeto 'criador' o email fornecido pelo utilizador,
@@ -168,13 +165,13 @@ namespace StandWeb.Areas.Identity.Pages.Account {
 
                // estamos em condições de guardar os dados na BD
                try {
-                  _context.Add(Input.Cliente); // adicionar o Criador
+                  _context.Add(Input.Cliente); // adicionar o Cliente
                   await _context.SaveChangesAsync(); // 'commit' da adição
                   // Enviar para o utilizador para a página de confirmação da criaçao de Registo
                   return RedirectToPage("RegisterConfirmation");
                }
                catch (Exception) {
-                  // houve um erro na criação dos dados do Criador
+                  // houve um erro na criação dos dados do Cliente
                   // Mas, o USER já foi criado na BD
                   // vou efetuar o Roolback da ação
                   await _userManager.DeleteAsync(user);
@@ -183,29 +180,6 @@ namespace StandWeb.Areas.Identity.Pages.Account {
                   ModelState.AddModelError("", "Ocorreu um erro na criação de dados");
                }
 
-
-
-
-
-               //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-               //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-               //var callbackUrl = Url.Page(
-               //    "/Account/ConfirmEmail",
-               //    pageHandler: null,
-               //    values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
-               //    protocol: Request.Scheme);
-
-               //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-               //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-               //if (_userManager.Options.SignIn.RequireConfirmedAccount) {   // ver linha 49 do ficheiro 'starup.cs'
-               //
-               //   return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-               //}
-               //else {
-               //   await _signInManager.SignInAsync(user, isPersistent: false);
-               //   return LocalRedirect(returnUrl);
-               //}
             }
             foreach (var error in result.Errors) {
                ModelState.AddModelError(string.Empty, error.Description);

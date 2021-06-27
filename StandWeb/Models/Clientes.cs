@@ -14,7 +14,7 @@ namespace StandWeb.Models
         }
 
         /// <summary>
-        /// identificador do vendedor
+        /// identificador do Cliente
         /// </summary>
         [Key]
         public int Id { get; set; }
@@ -58,8 +58,7 @@ namespace StandWeb.Models
 
         //************************************************************************************
         /// <summary>
-        /// Funciona como Chave Forasteira no relacionamento entre os Criadores
-        /// e a tabela de autenticação
+        /// Funciona como Chave Forasteira no relacionamento entre os Clientes e a tabela de autenticação
         /// </summary>
         public string UserName { get; set; }
 
